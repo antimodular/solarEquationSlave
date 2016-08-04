@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{72139F85-6818-4A82-A3D9-17B2C03B63A9}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="SeSlave.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\PodServer\PodServer.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SeSlave">
+        <MSBuild Projects="SeSlave.dproj"/>
+    </Target>
+    <Target Name="SeSlave:Clean">
+        <MSBuild Projects="SeSlave.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SeSlave:Make">
+        <MSBuild Projects="SeSlave.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PodServer">
+        <MSBuild Projects="..\PodServer\PodServer.dproj"/>
+    </Target>
+    <Target Name="PodServer:Clean">
+        <MSBuild Projects="..\PodServer\PodServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PodServer:Make">
+        <MSBuild Projects="..\PodServer\PodServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SeSlave;PodServer"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SeSlave:Clean;PodServer:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SeSlave:Make;PodServer:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

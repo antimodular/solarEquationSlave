@@ -1,0 +1,8 @@
+uniform sampler2D velocityMap;
+
+void main(void)
+{
+  vec2 v = texture2D(velocityMap, gl_TexCoord[0].xy);
+
+  gl_Position = glPosition + v;
+}
